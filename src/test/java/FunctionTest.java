@@ -4,8 +4,8 @@ import log.UpperFunction;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import trig.LowerFunction;
-import trig.*;
+import trigo.LowerFunction;
+import trigo.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,22 +21,22 @@ public class FunctionTest {
     private final Cos cos = new Cos(sin);
     private final Csc csc = new Csc(sin);
     private final Sec sec = new Sec(cos);
-    private final Tan tan = new Tan(cos, sin);
-    private final Cot cot = new Cot(cos, sin);
+    private final Tan tan = new Tan(sin, cos);
+
 
     private final Ln ln = new Ln();
     private final Log log2 = new Log(ln, 2);
     private final Log log5 = new Log(ln, 5);
-    private final Log log10 = new Log(ln, 10);
-    private final LowerFunction lowerFunction = new LowerFunction(cos, sec, tan, sin, csc, cot);
-    private final UpperFunction upperFunction = new UpperFunction(ln, log2, log5, log10);
+    private final Log log3 = new Log(ln, 3);
+    private final LowerFunction lowerFunction = new LowerFunction(csc, tan, sec, cos, sin);
+    private final UpperFunction upperFunction = new UpperFunction(log5, log3, log2);
 
-    private Function function;
+    private SystemSolver function;
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/SystemIn.csv")
     public void allMockTest(double value, double expected) {
-        function = new Function(lowerFunctionMock, upperFunctionMock);
+        function = new SystemSolver(lowerFunctionMock, upperFunctionMock);
         double result = function.system(value, eps);
         assertEquals(expected, result, delta);
     }
@@ -44,7 +44,7 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/SystemIn.csv")
     public void lowerFunctionStubTest(double value, double expected) {
-        function = new Function(lowerFunction, upperFunctionMock);
+        function = new SystemSolver(lowerFunction, upperFunctionMock);
         double result = function.system(value, eps);
         assertEquals(expected, result, delta);
     }
@@ -52,7 +52,7 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/SystemIn.csv")
     public void upperFunctionStubTest(double value, double expected) {
-        function = new Function(lowerFunctionMock, upperFunction);
+        function = new SystemSolver(lowerFunctionMock, upperFunction);
         double result = function.system(value, eps);
         assertEquals(expected, result, delta);
     }
@@ -60,7 +60,7 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/SystemIn.csv")
     public void allStubTest(double value, double expected) {
-        function = new Function(lowerFunction, upperFunction);
+        function = new SystemSolver(lowerFunction, upperFunction);
         double result = function.system(value, eps);
         assertEquals(expected, result, delta);
     }

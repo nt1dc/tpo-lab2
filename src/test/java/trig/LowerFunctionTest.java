@@ -11,7 +11,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
-public class LeftFunctionTest {
+public class LowerFunctionTest {
     private static final double delta = 0.5;
     private static final double eps = 0.001;
 
@@ -30,14 +30,14 @@ public class LeftFunctionTest {
 
 
     private LowerFunction lowerFunction;
-    private static final String file = "src/main/resources/csv/out/LeftFunctionOut.csv";
+    private static final String file = "src/test/resources/csv/out/LeftFunctionOut.csv";
 
-    public LeftFunctionTest() throws IOException {
+    public LowerFunctionTest() throws IOException {
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void allMockTest(double value, double expected) {
+    public void allMockTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(cscMock, tanMock, secMock, cosMock, sinMock);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);
@@ -46,7 +46,7 @@ public class LeftFunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void cosStubTest(double value, double expected) {
+    public void cosStubTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(cscMock, tanMock, secMock, cos, sinMock);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);
@@ -55,7 +55,7 @@ public class LeftFunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void secStubTest(double value, double expected) {
+    public void secStubTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(cscMock, tanMock, sec, cosMock, sinMock);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);
@@ -64,7 +64,7 @@ public class LeftFunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void tanStubTest(double value, double expected) {
+    public void tanStubTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(cscMock, tan, secMock, cosMock, sinMock);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);
@@ -73,7 +73,7 @@ public class LeftFunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void sinStubTest(double value, double expected) {
+    public void sinStubTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(cscMock, tanMock, secMock, cosMock, sin);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);
@@ -82,7 +82,7 @@ public class LeftFunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void cscStubTest(double value, double expected) {
+    public void cscStubTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(csc, tanMock, secMock, cosMock, sinMock);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);
@@ -92,7 +92,7 @@ public class LeftFunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/csv/in/LeftFunctionIn.csv")
-    public void allStubTest(double value, double expected) {
+    public void allStubTest(double value, double expected) throws IOException {
         lowerFunction = new LowerFunction(csc, tan, sec, cos, sin);
         double result = lowerFunction.system(value, eps);
         assertEquals(expected, result, delta);

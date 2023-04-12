@@ -9,6 +9,7 @@ public class Log {
         this.base = base;
     }
 
+
     public double log(double b, double eps) {
         if (Double.isNaN(ln.ln(b, eps))) return Double.NaN;
         return ln.ln(b, eps) / ln.ln(base, eps);

@@ -6,12 +6,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class Utils {
-    public static void writeResToCsv(double x, double res, String fileOut) {
+    public static void writeResToCsv(double x, double res, String fileOut) throws IOException {
         String text = x + "," + res + "\n";
-        try {
-            Files.write(Paths.get(fileOut), text.getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            System.out.println("Не удалось записать в файл");
-        }
+        Files.write(Paths.get(fileOut), text.getBytes(), StandardOpenOption.APPEND);
+
     }
 }
